@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Image, TextInput, Button, AsyncStorage} from 'react-native';
-import {db, auth, isAuthenticated, storageKey} from '../config/firebase';
+import { View, Image, TextInput, Button, AsyncStorage, Text} from 'react-native';
+import {db, auth, storageKey} from '../config/firebase';
 
 export default class Login extends React.Component {
     constructor(props){
@@ -9,7 +9,6 @@ export default class Login extends React.Component {
     }
 
     handleSignIn(){
-        console.log(isAuthenticated());
         auth.signInWithEmailAndPassword(this.state.username, this.state.password).then((userData)=>{
             AsyncStorage.setItem(storageKey, JSON.stringify(userData));
             this.props.loggedIn();
@@ -27,6 +26,7 @@ export default class Login extends React.Component {
         if(!this.state.newuser){
             return (
                 <View style={{backgroundColor: '#ffd200', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={{fontFamily: 'josefin-sans', fontSize: 28}}>braglist</Text>
                     <TextInput style={{height: 40, borderColor: 'gray', borderWidth: 1}} onChangeText={(text) => this.setState({username: text})} value={this.state.username} />
                     <TextInput style={{height: 40, borderColor: 'gray', borderWidth: 1}} onChangeText={(text) => this.setState({password: text})} value={this.state.password} />
                     <Button title="Register new user?" onPress={() => this.setState({newuser: true})} />
